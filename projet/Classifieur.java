@@ -73,19 +73,41 @@ public class Classifieur {
 	}
 	
 	public double probaSachantSpam(String fichier, int spamApp){
-		double proba = 1;
+		double proba = 0;
 		int[] vecteurX = spam.lire_message(fichier);
 		double partie1;
 		double partie2;
 		double biSpam;
 		double epsilon = 1;
 		for (int i = 0; i < bjSpam.length; i++) {
-			System.out.println(spam.dictionnaire[i]+" "+bjSpam[i]);
+			//System.out.println(spam.dictionnaire[i]+" "+bjSpam[i]);
 			biSpam = (double)((double)((bjSpam[i])+epsilon)/(spamApp+(2*epsilon)));
-			//System.out.println(biSpam);
+			//System.out.println(spam.dictionnaire[i]+" "+biSpam);
 			partie1 = (double)(Math.pow((double)(biSpam),(double)(vecteurX[i])));
 			partie2 = (double)(Math.pow((double)(1-(double)(biSpam)),(double)(1-(double)(vecteurX[i]))));
-			proba = (double)((double)(proba)*(double)((double)(partie1)*(double)(partie2)));
+			proba = (double)((double)(proba)+Math.log((double)((double)(partie1)*(double)(partie2))));
+			//System.out.println(i+"       "+partie1+"     "+partie2+"     "+proba);
+			
+		}
+		return proba;
+	}
+	
+	public double probaSachantHam(String fichier, int HamApp){
+		double proba = 0;
+		int[] vecteurX = spam.lire_message(fichier);
+		double partie1;
+		double partie2;
+		double biHam;
+		double epsilon = 1;
+		for (int i = 0; i < bjHam.length; i++) {
+			//System.out.println(spam.dictionnaire[i]+" "+bjHam[i]);
+			biHam = (double)((double)((bjHam[i])+epsilon)/(HamApp+(2*epsilon)));
+			//System.out.println(spam.dictionnaire[i]+" "+biHam);
+			partie1 = (double)(Math.pow((double)(biHam),(double)(vecteurX[i])));
+			partie2 = (double)(Math.pow((double)(1-(double)(biHam)),(double)(1-(double)(vecteurX[i]))));
+			proba = (double)((double)(proba)+Math.log((double)((double)(partie1)*(double)(partie2))));
+			//System.out.println(i+"       "+partie1+"     "+partie2+"     "+proba);
+			
 		}
 		return proba;
 	}

@@ -24,8 +24,9 @@ public class filtreAntiSpam {
 		classifieur.calculBjSpam();
 		classifieur.calculBjHam();
 		
-		double test = classifieur.probaSachantSpam("basetest/spam/1.txt", spamApp);
-		System.out.println(test);
+		double testSpam = classifieur.probaSachantSpam("basetest/spam/0.txt", spamApp);
+		double testHam = classifieur.probaSachantHam("basetest/spam/0.txt", hamApp);
+		System.out.println(testSpam+"    "+testHam);
 		
 	}
 
